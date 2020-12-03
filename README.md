@@ -1,2 +1,2 @@
-# VRED-Hotkeys2HTML
-Read/Activate VRED Hotkeys from a webpage
+# VRED-HotkeysApp
+Activate VRED Variants that have Hotkeys from a webpage
