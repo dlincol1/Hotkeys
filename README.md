@@ -1,2 +1,2 @@
 # VRED-HotkeysApp
-Activate VRED Variants that have Hotkeys from a webpage
+Activate VRED Variant Sets that have Hotkeys from a webpage
