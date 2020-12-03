@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html><head>
+<meta content="text/html; charset=UTF-8">
+<meta name="author" content="Dan Lincoln 2016">
+<title>VRED Hotkeys</title>
+
+<style>
+body {overflow:hidden; background: #333;}
+table {background-color: #333; width: 100%; border-collapse: collapse; border-width: 1px; border-color: white}
+tr.key:hover {background: #009DDC}
+td {color: white; white-space: nowrap}
+button {font-family: Arial; font-size: 24px; height: 48px; width: 48px; color: white; background: #000}
+span {font-family: Arial; font-size: 24px; color:white; font-weight: bold; padding: 8px; float: left}
+iframe {width: 100%; display: none}
+div {visibility: hidden; overflow: hidden;}
+</style>
+
+<script type="text/javascript">
+// Edit VREDserver variable below
+var VREDserver = "localhost:8888";
+
+function getServer() {
+return "http://" + VREDserver + "/pythonapi";}
+
+//Prepare the global variable for the request
+var myRequest;
+
+//Write the getText(url) function
+function getText(url) {
+myRequest = new XMLHttpRequest();
+
+//Call the open() method to make the request
+myRequest.open("GET", url, true);
+
+//Send the request
+myRequest.send(null);
+
+//Assign getData() function to onreadystatechange to handle server response
+myRequest.onreadystatechange = getData;}
+
+//This function handles the server response
+function getData() {
+//Check the response is complete
+
+if (myRequest.readyState === 4) {
+	//Check the status code of the response is successful
+	if (myRequest.status === 200) {
+		//Store the response
+		var text = myRequest.responseText;
+		
+		//Clean up text to store hotkeys and vset names
+		text = text.substring(text.lastIndexOf("{")+1);
+		text = text.substring(0, text.indexOf("}"));
+		
+		text = text.replace(/, /g, ',');
+		text = text.replace(/,/g, '\n');
+		
+		var lines = text.split("\n");
+        var supported = /^[A-Z0-9]$/;
+        
+        	for(var i = 0;i < lines.length;i++) {
+                lineID=lines[i].split(':');
+                
+                vKey = lineID[0].replace(/'/g, '');
+                vSet = lineID[1].replace(/'/g, '').replace(/^ /, '');
+                
+                if (supported.test(vKey)) {
+                    document.getElementById(vKey).textContent=vSet;}
+            }
+		}
+	}
+}
+
+function loadData() {
+document.getElementById('SERVER').value = VREDserver;
+getText('http://' + document.getElementById('SERVER').value + '/pythonapi?value=print+hotkeyDictionary');}
+
+function updatehotkeys() {
+document.getElementById('FORM').action = getServer();
+document.getElementById('PYTHON').value = "selectVariantSet('Hotkeys')";
+document.getElementById('FORM').submit();
+setTimeout('loadData()', 1000);}
+
+function sendKey(key) {
+document.getElementById('FORM').action = getServer();
+// Activate variantSet by name
+vsName = document.getElementById(key).textContent;
+document.getElementById('PYTHON').value = "selectVariantSet('"+vsName+"')";
+document.getElementById('FORM').submit();}
+
+function set_font_size(size) {
+var tags =document.getElementsByTagName('span')
+for (i = 0; i < tags.length; i++) {
+	tags[i].style.fontSize = size + "px";}
+}
+
+function get_font_size() {
+var tags = document.getElementsByTagName('span')
+var current_size = window.getComputedStyle(tags[0], null).getPropertyValue('font-size');
+if (current_size == '24px') {
+	set_font_size(18); }
+else if (current_size == '18px') {
+	set_font_size(16); }
+else if (current_size == '16px') {
+	set_font_size(24); }
+}
+
+function set_font_type(type) {
+var tags =document.getElementsByTagName('span')
+for (i = 0; i < tags.length; i++) {
+	tags[i].style.fontFamily = type;}
+}
+
+function get_font_type() {
+var tags = document.getElementsByTagName('span')
+var current_type = window.getComputedStyle(tags[0], null).getPropertyValue('font-family');
+if (current_type == 'Arial') {
+	set_font_type('Courier'); }
+else if (current_type == "Courier") {
+	set_font_type('Arial'); }
+}
+</script>
+</head>
+
+<body onload='updatehotkeys();'>
+<table class=main>
+<form name=FORM id=FORM method=get target=output action=''>
+<input type=hidden name=host id=SERVER>
+<input type=hidden name=value id=PYTHON>
+<tr>
+
+<td width=33% valign=top>
+<table class=hk border=1>
+<tr class=key onclick=javascrpt:location.reload()><td><button type=button>&#8635;</button></td><td><span><font color=red>V</font>RED Hotkeys</span></td></tr>
+<tr class=key onclick=javascript:get_font_type()><td><button type=button>&alpha;</button></td><td><span>Font Type</span></td></tr>
+<tr class=key onclick=javascript:get_font_size()><td><button type=button>&#177;</button></td><td><span>Font Size</span></td></tr>
+<tr class=key onclick=sendKey('1')><td width=1><button type=button>1</button></td><td><span id=1></span></td></tr>
+<tr class=key onclick=sendKey('2')><td><button type=button>2</button></td><td><span id=2></span></td></tr>
+<tr class=key onclick=sendKey('3')><td><button type=button>3</button></td><td><span id=3></span></td></tr>
+<tr class=key onclick=sendKey('4')><td><button type=button>4</button></td><td><span id=4></span></td></tr>
+<tr class=key onclick=sendKey('5')><td><button type=button>5</button></td><td><span id=5></span></td></tr>
+<tr class=key onclick=sendKey('6')><td><button type=button>6</button></td><td><span id=6></span></td></tr>
+<tr class=key onclick=sendKey('7')><td><button type=button>7</button></td><td><span id=7></span></td></tr>
+<tr class=key onclick=sendKey('8')><td><button type=button>8</button></td><td><span id=8></span></td></tr>
+<tr class=key onclick=sendKey('9')><td><button type=button>9</button></td><td><span id=9></span></td></tr>
+<tr class=key onclick=sendKey('0')><td><button type=button>0</button></td><td><span id=0></span></td></tr>
+</table></td>
+
+<td width=33% valign=top>
+<table class=hk border=1>
+<tr class=key onclick=sendKey('A')><td width=1><button type=button>A</button></td><td><span id=A></span></td></tr>
+<tr class=key onclick=sendKey('B')><td><button type=button>B</button></td><td><span id=B></span></td></tr>
+<tr class=key onclick=sendKey('C')><td><button type=button>C</button></td><td><span id=C></span></td></tr>
+<tr class=key onclick=sendKey('D')><td><button type=button>D</button></td><td><span id=D></span></td></tr>
+<tr class=key onclick=sendKey('E')><td><button type=button>E</button></td><td><span id=E></span></td></tr>
+<tr class=key onclick=sendKey('F')><td><button type=button>F</button></td><td><span id=F></span></td></tr>
+<tr class=key onclick=sendKey('G')><td><button type=button>G</button></td><td><span id=G></span></td></tr>
+<tr class=key onclick=sendKey('H')><td><button type=button>H</button></td><td><span id=H></span></td></tr>
+<tr class=key onclick=sendKey('I')><td><button type=button>I</button></td><td><span id=I></span></td></tr>
+<tr class=key onclick=sendKey('J')><td><button type=button>J</button></td><td><span id=J></span></td></tr>
+<tr class=key onclick=sendKey('K')><td><button type=button>K</button></td><td><span id=K></span></td></tr>
+<tr class=key onclick=sendKey('L')><td><button type=button>L</button></td><td><span id=L></span></td></tr>
+<tr class=key onclick=sendKey('M')><td><button type=button>M</button></td><td><span id=M></span></td></tr>
+</table></td>
+
+<td width=33% valign=top>
+<table class=hk border=1>
+<tr class=key onclick=sendKey('N')><td width=1><button type=button>N</button></td><td><span id=N></span></td></tr>
+<tr class=key onclick=sendKey('O')><td><button type=button>O</button></td><td><span id=O></span></td></tr>
+<tr class=key onclick=sendKey('P')><td><button type=button>P</button></td><td><span id=P></span></td></tr>
+<tr class=key onclick=sendKey('Q')><td><button type=button>Q</button></td><td><span id=Q></span></td></tr>
+<tr class=key onclick=sendKey('R')><td><button type=button>R</button></td><td><span id=R></span></td></tr>
+<tr class=key onclick=sendKey('S')><td><button type=button>S</button></td><td><span id=S></span></td></tr>
+<tr class=key onclick=sendKey('T')><td><button type=button>T</button></td><td><span id=T></span></td></tr>
+<tr class=key onclick=sendKey('U')><td><button type=button>U</button></td><td><span id=U></span></td></tr>
+<tr class=key onclick=sendKey('V')><td><button type=button>V</button></td><td><span id=V></span></td></tr>
+<tr class=key onclick=sendKey('W')><td><button type=button>W</button></td><td><span id=W></span></td></tr>
+<tr class=key onclick=sendKey('X')><td><button type=button>X</button></td><td><span id=X></span></td></tr>
+<tr class=key onclick=sendKey('Y')><td><button type=button>Y</button></td><td><span id=Y></span></td></tr>
+<tr class=key onclick=sendKey('Z')><td><button type=button>Z</button></td><td><span id=Z></span></td></tr>
+</table></td>
+
+</tr></form>
+<div><iframe id='output' name='output' src=''></iframe></div>
+</table></body></html>
