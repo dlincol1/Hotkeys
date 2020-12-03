@@ -7,5 +7,5 @@ How to use:
 <li> Create a Variant Set named 'Hotkeys'
 <li> Copy Hotkeys.py into Hotkeys Script tab
 <li> Edit Hotkeys.html file to change VREDserver variable as needed
-<li> Open Hotkeys.html in browser and click 'VRED Hotkeys' to populate webpage with Variant Set names that have Hotkeys assigned
+<li> Open Hotkeys.html in browser and click 'VRED Hotkeys' to populate webpage with Variant Set names with Hotkeys assigments
 <li> Click Hotkey button or Variant Set name to activate
