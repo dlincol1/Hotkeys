@@ -4,6 +4,8 @@ Activate VRED Variant Sets with Hotkeys from a webpage
 
 How to use:
 <li> Enable VRED Web Server
-<li> Create a Variant Set name 'Hotkeys'
+<li> Create a Variant Set named 'Hotkeys'
 <li> Copy Hotkeys.py into Hotkeys Script tab
-<li> Open Hotkeys.html and click 'VRED Hotkeys' to populate webpage with Variant Set names that have Hotkeys assigned
+<li> Edit Hotkeys.html file to change VREDserver variable as needed
+<li> Open Hotkeys.html in browser and click 'VRED Hotkeys' to populate webpage with Variant Set names that have Hotkeys assigned
+<li> Click Hotkey button or Variant Set name to activate
