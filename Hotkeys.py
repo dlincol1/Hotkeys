@@ -1,6 +1,6 @@
-# Gets Hotkey assignments for use in Hotkeys.html
-# Copy this to VRED VariantSet Script tab and name as 'Hotkeys'
-# By Dan Lincoln 11/15/2015
+# Store Hotkeys in dictionary for use in Hotkeys.html
+# Copy code to VRED VariantSet Script tab and name as 'Hotkeys'
+# By Dan Lincoln
 
 print "Getting Hotkeys..."
 print "Supported Keys for this version (0-9, A-Z):"
