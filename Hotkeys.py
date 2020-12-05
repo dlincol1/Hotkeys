@@ -1,42 +1,32 @@
-# Store Hotkeys in dictionary for use in Hotkeys.html
-# Copy code to VRED VariantSet Script tab and name as 'Hotkeys'
+# Store Hotkeys in dictionary for use in Hotkeys.html App
+# Copy to VRED VSet Script tab and name as 'Hotkeys'
 # By Dan Lincoln
 
-print "Getting Hotkeys..."
-print "Supported Keys for this version (0-9, A-Z):"
-vsetPtrs = getVariantSets()
+filename = getFileIOFilePath()
+print("\n" + filename)
+print("Hotkey : Variant Set Name")
+print("-------------------------")
+vset_names = getVariantSets()
 
-# Build a list of names for iteration, cannot just iterate on the Ptr names
-vsets = []
-hkeys = []
-keys_active = []
-key_numbers = []
-keys_supported = [
-'1','2','3','4','5','6','7','8','9','0',
-'A','B','C','D','E','F','G','H','I','J','K','L','M',
-'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+hotkeys_all = []
+hotkeys_single = []
+hotkeyDict = {}
 
-# Dictionary of keys & values
-hotkeyDictionary = {}
-
-for i in vsetPtrs:
-    vsets.append(i)
-
-for j in vsets:
+# Append keys to lists
+for j in vset_names:
     v = getVariantSet(j)
-    h = v.getHotkey()
+    hotkey = v.getHotkey()
+    
+    if hotkey != "":
+        hotkeys_all.append(hotkey)
 
-    if h != "":
-        # remove spaces
-        dictKey = h.strip()
-        hkeys.append(h.strip())
-        if len(h.strip()) == 1:
-            keys_active.append(h.strip()) 
-        hotkeyDictionary[dictKey] = j
+        single_key = hotkey.strip()
+        if len(single_key) == 1:
+            hotkeys_single.append(single_key)
+        hotkeyDict[hotkey] = j
 
-hkeys.sort()
-keys_active.sort()
+hotkeys_all.sort()
+hotkeys_single.sort()
 
-print "Hotkeys found: " + str(hkeys)
-print "Dictionary keys: " + str(hotkeyDictionary.keys())
-print "Dictionary values: " + str(hotkeyDictionary.values())
+for i in hotkeys_all:
+    print((i + " : " + str(hotkeyDict[i]) ))
