@@ -10,3 +10,5 @@ How to use:
 <li> Open Hotkeys.html in browser, click 'VRED Hotkeys' to refresh VSet names & Hotkeys
 <li> Click Hotkey button or Variant Set name to activate
 <li> All Variant Sets with Hotkeys are also printed to the console
+
+![VRED-HotkeysList](https://user-images.githubusercontent.com/39199224/101231792-9a262300-367b-11eb-9015-11fbc16a66b2.PNG)
