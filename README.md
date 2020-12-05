@@ -9,3 +9,4 @@ How to use:
 <li> Edit Hotkeys.html file to change VREDserver variable as needed
 <li> Open Hotkeys.html in browser, click 'VRED Hotkeys' to refresh VSet names & Hotkeys
 <li> Click Hotkey button or Variant Set name to activate
+<li> All Variant Sets with Hotkeys are also printed to the console
